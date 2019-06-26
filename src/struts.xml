@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE struts PUBLIC  
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"  
+    "http://struts.apache.org/dtds/struts-2.3.dtd">  
+      
+<struts>  
+    <constant name="struts.i18n.encoding" value="UTF-8" />  
+    <constant name="struts.action.extension" value="action" />  
+	<package name="Sevens" namespace="/" extends="struts-default">  
+	    <interceptors>
+	        <interceptor name="loginInter" class="seven.interceptor.LoginInterceptor"></interceptor>
+	    </interceptors>
+		<action name="User_*" class="seven.action.UserAction" method="{1}">
+			<result name="success">main.jsp</result>
+        	<result name="register_success">reg-result.jsp</result><!-- 注册成功 -->
+        	<result name="signup_success">signup_result.jsp</result><!-- 标记-->
+        	<result name="error">login.jsp</result><!-- 出错 -->
+        	<result name="login">log_result.jsp</result>
+        	<result name="logout" type="redirect">index.jsp</result>
+        	<result name="logout2" type="redirect">login.jsp</result>
+        	<result name="userCenter">userCenter/userInfo.jsp</result>
+        	<result name="errorAdmin">login.jsp</result><!-- 管理员出错 -->
+        	<result name="modify">userCenter/userModify.jsp</result><!-- 修改 -->
+        	<result name="modifySuccess" type="redirectAction">User_userCenter</result><!-- 修改成功 -->
+        	<!-- <result name="modifySuccess">login.jsp</result> -->
+        	<result name="loginAdmin">main.jsp</result><!-- 管理员登录 -->
+        	<interceptor-ref name="defaultStack"></interceptor-ref>
+        	<!-- 只要action引用了LoginInterceptor  那么访问它就必须登录 -->
+        	<interceptor-ref name="loginInter">
+        	    <param name="includeMethods">login</param>
+        	</interceptor-ref>
+        </action>
+        <action name="Zone_*" class="seven.action.ZoneAction" method="{1}">
+        	<result name="success">main.jsp</result>
+        </action>
+        <action name="Section_*" class="seven.action.SectionAction" method="{1}">
+        	<result name="success">main.jsp</result>
+        	<result name="save" type="redirectAction">admin/Section_list</result>
+        </action>
+        <action name="Topic_*" class="seven.action.TopicAction" method="{1}">
+        	<result name="success">topic/topicList.jsp</result>
+        	<result name="card">topic/cardList.jsp</result>
+        	<result name="preSave">topic/topicAdd.jsp</result>
+        	<result name="save" type="redirectAction">Topic_list</result>
+        	<result name="details">topic/topicDetails.jsp</result>
+        	<result name="successAdmin">main.jsp</result>
+     
+        	<result name="describ">diccript.jsp</result>
+        	<result name="signup">signup.jsp</result>
+        	<result name="query">shibh/query.jsp</result>
+        	<result name="match_result">shibh/match_result.jsp</result>
+        </action>
+        <action name="Reply_*" class="seven.action.ReplyAction" method="{1}">
+        	
+        </action>
+    </package>  
+</struts>   
